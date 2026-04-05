@@ -39,9 +39,10 @@ img{display:block}a{text-decoration:none;color:inherit}
 @keyframes introOut{to{opacity:0;pointer-events:none}}
 
 /* ── 편지지 ── */
-.letter-wrap{position:relative;z-index:2;perspective:1200px}
+.letter-wrap{position:relative;z-index:2;perspective:1200px;cursor:pointer}
 .letter-paper{
   width:min(460px,86vw);
+  cursor:pointer;
   background:rgba(18,14,9,.92);
   border:1px solid rgba(200,168,75,.18);
   box-shadow:0 0 0 1px rgba(200,168,75,.06),0 24px 60px rgba(0,0,0,.55);
@@ -126,6 +127,7 @@ img{display:block}a{text-decoration:none;color:inherit}
   font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.32em;
   color:rgba(200,168,75,.18);
   animation:hBlink 2.8s 2s ease-in-out infinite;
+  cursor:pointer;
 }
 @keyframes hBlink{0%,100%{opacity:.1}50%{opacity:.48}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
@@ -841,8 +843,8 @@ footer{
       <!-- 이메일 -->
       <div class="email-wrap">
         <div class="email-header">
-          <div class="email-row"><span class="email-field">From</span><span class="email-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="166473787c7f7d777b7f6f7756736e777b667a733875797b">[email&#160;protected]</a></span></div>
-          <div class="email-row"><span class="email-field">To</span><span class="email-val"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1a63756f5a7f627b776a767f34797577">[email&#160;protected]</a></span></div>
+          <div class="email-row"><span class="email-field">From</span><span class="email-val">renjikamiya@example.com</span></div>
+          <div class="email-row"><span class="email-field">To</span><span class="email-val">you@example.com</span></div>
           <div class="email-row"><span class="email-field">Date</span><span class="email-val">2025년 4월 4일 금요일, 19:00</span></div>
           <div class="email-row"><span class="email-field">Subject</span><span class="email-val" style="color:var(--gold)">약속 장소 안내</span></div>
         </div>
@@ -1236,7 +1238,7 @@ footer{
 
 </div><!-- /#site -->
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── INTRO ── */
 const introEl = document.getElementById('intro');
 const siteEl  = document.getElementById('site');
@@ -1377,6 +1379,8 @@ function enter(){
 }
 
 introEl.addEventListener('click', enter);
+// 편지지 클릭도 enter로 연결 (이벤트 버블링 보완)
+document.getElementById('letterPaper').addEventListener('click', enter);
 
 window.addEventListener('load', ()=>{
   addCursor();
@@ -1515,4 +1519,14 @@ var RES = "<!DOCTYPE html>\n<html lang=\"ko\">\n<head>\n<meta charset=\"UTF-8\">
   var resBtn = document.getElementById('resStructureBtn');
   if (resBtn) resBtn.addEventListener('click', function() { openPopup('resOverlay','resIframe',RES,resFlag); });
   var resCloseEl = document.getElementById('resClose');
-  if (resCloseEl) resCloseEl.addEventListener('click', function() { closePopup('resOverl
+  if (resCloseEl) resCloseEl.addEventListener('click', function() { closePopup('resOverlay'); });
+  var resOvEl = document.getElementById('resOverlay');
+  if (resOvEl) resOvEl.addEventListener('click', function(e) { if(e.target===this) closePopup('resOverlay'); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key==='Escape') { closePopup('bldOverlay'); closePopup('resOverlay'); }
+  });
+})();
+
+</script>
+</body>
+</html>
