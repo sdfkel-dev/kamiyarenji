@@ -1276,10 +1276,10 @@ function typeLines(cb){
     removeCursor();
     letterBody.appendChild(document.createTextNode(line[charIdx++]));
     addCursor();
-    setTimeout(()=>typeLines(cb), 52 + Math.random()*38);
+    setTimeout(()=>typeLines(cb), 28 + Math.random()*20);
   } else {
     lineIdx++; charIdx=0;
-    setTimeout(()=>typeLines(cb), 280);
+    setTimeout(()=>typeLines(cb), 150);
   }
 }
 
@@ -1287,12 +1287,12 @@ function showAfterTyping(){
   typingDone = true;
   letterSource.textContent = LETTER_SOURCE;
   letterSource.style.transition='opacity .6s .1s'; letterSource.style.opacity='1';
-  setTimeout(()=>{ letterDiv.style.transition='opacity .5s'; letterDiv.style.opacity='1'; }, 400);
+  setTimeout(()=>{ letterDiv.style.transition='opacity .5s'; letterDiv.style.opacity='1'; }, 240);
   setTimeout(()=>{
     letterName.style.transition='opacity .55s,transform .55s';
     letterName.style.opacity='1'; letterName.style.transform='none';
-  }, 700);
-  setTimeout(()=>{ letterNameSub.style.transition='opacity .5s'; letterNameSub.style.opacity='1'; }, 960);
+  }, 430);
+  setTimeout(()=>{ letterNameSub.style.transition='opacity .5s'; letterNameSub.style.opacity='1'; }, 640);
 }
 
 /* ══ 접기 + 비행기 애니메이션 ══ */
@@ -1389,7 +1389,7 @@ window.addEventListener('load', ()=>{
       showAfterTyping();
       setTimeout(enter, 12000);  // 12초 후 자동 진행
     });
-  }, 350);
+  }, 200);
 });
 
 
